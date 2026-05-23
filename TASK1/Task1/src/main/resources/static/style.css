@@ -1,0 +1,319 @@
+:root {
+            --bg-base: #08080a;
+            --surface-panel: #111116;
+            --brand-red: #ff0b43;
+            --brand-cyan: #00f2ff;
+            --text-primary: #f4f4f6;
+            --text-secondary: #8c8c9e;
+            --font-nav: 'Space Grotesk', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- GLOBAL & TEXTURE RESET --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+
+            /* Gritty carbon-dot texture instead of flat dark CSS gradients */
+            background-image: radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* --- NAVIGATION --- */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.75rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--bg-base) 40%, transparent);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-logo {
+            font-family: var(--font-nav);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo span {
+            background: linear-gradient(90deg, var(--brand-red), #ff6b00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- HERO DISPLAY --- */
+        .hero-viewport {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.21fr 0.79fr;
+            align-items: center;
+            padding: 0 6% 0 8%;
+            position: relative;
+            gap: 4rem;
+        }
+
+        /* Red tachometer glow behind layout */
+        .hero-viewport::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: -10%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, rgba(255, 11, 67, 0.08), transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-text-block {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-tag {
+            font-family: var(--font-nav);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--brand-cyan);
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        .hero-headline {
+            font-family: var(--font-body);
+            font-size: clamp(3rem, 5vw, 5.5rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .hero-headline em {
+            font-style: normal;
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(244, 244, 246, 0.4);
+        }
+
+        .hero-sub {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 520px;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        /* --- THE CAR COMPONENT --- */
+        .hero-car-frame {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The asymmetrical racing cutout wrapper */
+        .car-mask {
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(12% 0, 100% 0, 100% 82%, 88% 100%, 0 100%, 0 18%);
+            background: linear-gradient(135deg, #181822, #0d0d12);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .car-mask img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.75;
+            filter: saturate(1.1) contrast(1.05);
+            transition: transform 0.7s var(--ease-out-expo), opacity 0.4s ease;
+        }
+
+        .hero-car-frame:hover .car-mask img {
+            transform: scale(1.05) rotate(-0.5deg);
+            opacity: 0.95;
+        }
+
+        /* Tactical HUD Overlay labels on image */
+        .hud-label {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            font-family: var(--font-nav);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 1px;
+        }
+
+        /* --- INTERACTIVE ACTION TRIGGERS --- */
+        .action-trigger {
+            display: inline-flex;
+            align-items: center;
+            padding: 1.1rem 2.5rem;
+            font-family: var(--font-nav);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            color: var(--text-primary);
+            background-color: var(--brand-red);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        /* Custom mechanical corner cut via pseudo elements instead of typical clip-paths */
+        .action-trigger::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 0 12px 12px 0;
+            border-color: transparent var(--bg-base) transparent transparent;
+        }
+
+        .action-trigger:hover {
+            background-color: #ff2456;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 11, 67, 0.35);
+        }
+
+        /* --- SECURE DATA GRID SECTION (FORM) --- */
+        .contact-grid-section {
+            padding: 10rem 6% 8rem 8%;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 6rem;
+            align-items: start;
+            border-top: 1px solid #14141a;
+        }
+
+        .section-header-block h2 {
+            font-family: var(--font-body);
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header-block p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        /* Custom Form Sheet Layout */
+        .grid-form-card {
+            background-color: var(--surface-panel);
+            padding: 3.5rem;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* Industrial accent dash line */
+        .grid-form-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 15%; width: 40px; height: 3px;
+            background-color: var(--brand-red);
+        }
+
+        .input-row {
+            margin-bottom: 2.5rem;
+        }
+
+        /* Clean custom baseline fields */
+        .native-field {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid #282830;
+            padding: 0.75rem 0;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .native-field:focus {
+            outline: none;
+            border-bottom-color: var(--brand-cyan);
+        }
+
+        /* Replaced traditional browser placeholders with modern light typography styling */
+        .native-field::placeholder {
+            color: #4e4e5a;
+            font-family: var(--font-nav);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+        }
+
+        textarea.native-field {
+            min-height: 90px;
+            resize: none;
+        }
+
+        .grid-form-card .action-trigger {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* --- RESPONSIVE SCALING CORRECTIONS --- */
+        @media (max-width: 1024px) {
+            .hero-viewport {
+                grid-template-columns: 1fr;
+                padding-top: 8rem;
+                padding-bottom: 4rem;
+                gap: 2rem;
+            }
+            .hero-car-frame {
+                height: 40vh;
+            }
+            .contact-grid-section {
+                grid-template-columns: 1fr;
+                gap: 3.5rem;
+                padding-top: 4rem;
+            }
+            .grid-form-card {
+                padding: 2.5rem 1.75rem;
+            }
+        }
