@@ -35,15 +35,18 @@ Frontend Form → POST Request → Spring Boot Backend → Console Output
 
 # 📂 Project Structure
 
+```text
 Task1/
 │
 ├── src/
 │   └── main/
 │       ├── java/
-│       │   └── com/maincraft/task1/
-│       │       ├── Task1Application.java
-│       │       └── controller/
-│       │           └── ContactController.java
+│       │   └── com/
+│       │       └── maincraft/
+│       │           └── task1/
+│       │               ├── Task1Application.java
+│       │               └── controller/
+│       │                   └── ContactController.java
 │       │
 │       └── resources/
 │           ├── static/
@@ -53,6 +56,7 @@ Task1/
 │           └── application.properties
 │
 └── pom.xml
+```
 
 ---
 
